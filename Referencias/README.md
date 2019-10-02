@@ -11,6 +11,7 @@ https://www.youtube.com/watch?v=6sHGBXwkFQU&feature=youtu.be
 Exemplos de sockets:
 https://www.pubnub.com/blog/socket-programming-in-python-client-server-p2p/
 https://www.youtube.com/watch?v=Rvfs6Xx3Kww
+https://www.youtube.com/watch?v=Lbfe3-v7yE0
 
 Tipos de protocolo:
 https://www.weblink.com.br/blog/tecnologia/conheca-os-principais-protocolos-de-internet/
