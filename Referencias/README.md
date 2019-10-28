@@ -16,5 +16,10 @@ https://www.youtube.com/watch?v=Lbfe3-v7yE0
 Tipos de protocolo:
 https://www.weblink.com.br/blog/tecnologia/conheca-os-principais-protocolos-de-internet/
 
+Sockets Python:
+https://wiki.python.org.br/SocketBasico
+https://blog.4linux.com.br/socket-em-python/
+https://docs.python.org/3/howto/sockets.html
+https://realpython.com/python-sockets/
 
 
