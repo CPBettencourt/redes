@@ -26,6 +26,6 @@ while True:
 	#Recebimento de dado do servidor de até 4096 bytes
 	if not data:
 		break
-	print data
+	print (data)
 
 conn.close()
