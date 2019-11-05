@@ -5,7 +5,7 @@
 
 import socket
 
-host = '192.168.137.1'
+host = '169.254.141.186'
 port = 2000
 addr = (host, port) 
 
