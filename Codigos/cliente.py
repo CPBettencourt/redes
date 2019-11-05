@@ -1,4 +1,3 @@
-#----------Trabalho de Redes----------
 #comunicação clinte servidor
 #codigo para o cliente
 
@@ -7,7 +6,7 @@
 import socket
 
 host = ''
-port = 8080
+port = 2000
 addr = (host, port)
 
 conn = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
