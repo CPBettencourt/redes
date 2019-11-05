@@ -5,8 +5,8 @@
 
 import socket
 
-host = '192.168.10'
-port = 1234
+host = '169.254.141.186'
+port = 2000
 addr = (host, port) 
 
 conn = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -18,12 +18,12 @@ conn.connect(addr)
 
 while True:
 	line = input()
-	conn.send(line)
+	conn.send(bytes(line, 'utf-8'))
 	#Entrada de dados e envio ao servidor
 	
 	data = conn.recv(4096)
 	#Recebimento de dado do servidor de ate 4096 bytes
-	if not data:
+	if data == '\n':
 		break
 	print (data)
 
