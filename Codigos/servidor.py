@@ -63,7 +63,7 @@ while True:
             sockets_lista.append(conn)
             clients[conn] = user
 
-            print(f'Nova conexao aceita de: {user['data'].decode('utf-8')}')
+            print('Nova conexao aceita de: {}'.format(user[info].decode('utf-8')))
             reg.write(f'Nova conexao aceita de: {user['data'].decode('utf-8')}' + '\n')
             
         else:
