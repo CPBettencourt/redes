@@ -30,6 +30,7 @@ clients = {}
 #Inicia um dicionario de clientes (conexoes)
 
 print(u"Aguardando conexão")
+reg += u'Aguardando conexão' + '\n'
 
 #Funcao que decodifica a mensagem
 #Ela recebe o tamanho esperado da mensagem e depois retorna um dicionario da mensagem
