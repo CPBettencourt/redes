@@ -81,8 +81,8 @@ while True:
                 continue
 
             user = clients[socket_atual]
-            print(f'Mensagem recebida de {user["info"].decode("utf-8")}: {message["info"].decode("utf-8")}')
-            reg.write(f'{user["info"].decode("utf-8")}: {message["info"].decode("utf-8")}' + '\n')
+            print('Mensagem recebida de {}: {}'.format(user["info"].decode("utf-8"), message["info"].decode("utf-8")))
+            reg.write('{}: {}'.format(user["info"].decode("utf-8"), message["info"].decode("utf-8")) + '\n')
 
             for client in clients:
 
