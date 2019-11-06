@@ -1,4 +1,4 @@
-#codigo para o servidor
+#Codigo para o servidor
 #Os comentarios aqui adicionados sao para dar inicio ao relatorio
 
 import socket
@@ -6,14 +6,14 @@ import select
 
 reg = open('message_log.txt', 'a+') #Arquivo txt registrando as mensagens da sessão
 tam_cabe = 10 #Tamanho do cabecalho
-host = '169.254.141.186' #Indica qualquer IP
+host = '' #Indica o IP
 port = 2000
 end = (host, port)
 
 serv = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-serv.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 #Criacao do mecanismo de socket para recebimento da conexao, AF_INET indica a familia 
 #do protocolo e SOCK_STREAM indica que sera TCP/IP
+serv.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 #Zera o TIME_WAIT do Socket, caso contrario, se o programa estiver aguardando uma conexao e o usuario der CTRL+C para 
 #interromper, o programa  sera fechado, porem o Socket continua na escuta e se a mesma porta nao podera ser 
 #utilizada em outro programa
@@ -30,6 +30,7 @@ clients = {}
 #Inicia um dicionario de clientes (conexoes)
 
 print(u"Aguardando conexão")
+#Apos cada print, as informacoes serao registradas no arquivo de texto
 reg.write(u'Aguardando conexão' + '\n')
 
 #Funcao que decodifica a mensagem
