@@ -74,6 +74,9 @@ while True:
                 reg.write(f'Conexao encerrada com: {clients[notified_socket]['data'].decode('utf-8')}' + '\n')
                 sockets_list.remove(notified_socket)
                 del clients[notified_socket]
+                
+                if len(sockets_list) == 1:
+                    break
 
                 continue
 
@@ -85,6 +88,9 @@ while True:
 
                 if client != notified_socket:
                     client.send(user['header'] + user['data'] + message['header'] + message['data'])
-                  
+    if len(sockets_list) == 1:
+        break
+
+reg.write('Servidor encerrado')
 reg.close()
 serv.close()
