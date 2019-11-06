@@ -28,7 +28,7 @@ conn.send(usuario_cabe + usuario)
 
 while True:
     #Inicia o loop para envio de mensagens
-	mensagem = input(f'{nome} > ')
+	mensagem = input(f"{nome} > ")
 	if mensagem:
     	#Se a mensagem nao estiver vazia, a codificacao e realizada e os
 		#dados enviados
@@ -39,7 +39,6 @@ while True:
 	try:
 		while True:
     		#Inicia o loop para recebimento de mensagens
-			usuario_cabe = conn.recv(tam_cabe)
 
 			if not len(usuario_cabe):
     			#Caso nao receba dado
@@ -47,9 +46,9 @@ while True:
 				sys.exit()
 
 			#Recebe e converte o cabecalho em um valor inteiro e recebe e decodifica o nome do usuario
-			
+			usuario_cabe = conn.recv(tam_cabe)
 			tam_usuario = int(usuario_cabe.decode('utf-8').strip())
-			usuario = conn.recv(usuario_cabe).decode('utf-8')
+			usuario = conn.recv(tam_usuario).decode('utf-8')
 			
 			#Faz o mesmo para o conteudo da mensagem
 			mensagem_cabe = conn.recv(tam_cabe)
