@@ -4,7 +4,7 @@
 import socket
 import select
 
-reg = '' #Registro das mensagens da sessão
+reg = open('message_log.txt', a+) #Arquivo txt registrando as mensagens da sessão
 tam_cabe = 10 #Tamanho do cabecalho
 host = '169.254.141.186' #Indica qualquer IP
 port = 2000
@@ -30,7 +30,7 @@ clients = {}
 #Inicia um dicionario de clientes (conexoes)
 
 print(u"Aguardando conexão")
-reg += u'Aguardando conexão' + '\n'
+reg.write(u'Aguardando conexão' + '\n')
 
 #Funcao que decodifica a mensagem
 #Ela recebe o tamanho esperado da mensagem e depois retorna um dicionario da mensagem
@@ -64,14 +64,14 @@ while True:
             clients[conn] = user
 
             print(f'Nova conexao aceita de: {user['data'].decode('utf-8')}')
-            reg += f'Nova conexao aceita de: {user['data'].decode('utf-8')}' + '\n'
+            reg.write(f'Nova conexao aceita de: {user['data'].decode('utf-8')}' + '\n')
             
         else:
             message = receive_message(notified_socket)
 
             if message is False:
                 print(f'Conexao encerrada com: {clients[notified_socket]['data'].decode('utf-8')}')
-                reg += f'Conexao encerrada com: {clients[notified_socket]['data'].decode('utf-8')}' + '\n'
+                reg.write(f'Conexao encerrada com: {clients[notified_socket]['data'].decode('utf-8')}' + '\n')
                 sockets_list.remove(notified_socket)
                 del clients[notified_socket]
 
@@ -79,14 +79,12 @@ while True:
 
             user = clients[notified_socket]
             print(f'Mensagem recebida de {user["data"].decode("utf-8")}: {message["data"].decode("utf-8")}')
-            reg += f'{user["data"].decode("utf-8")}: {message["data"].decode("utf-8")}' + '\n'
+            reg.write(f'{user["data"].decode("utf-8")}: {message["data"].decode("utf-8")}' + '\n')
 
             for client in clients:
 
                 if client != notified_socket:
                     client.send(user['header'] + user['data'] + message['header'] + message['data'])
                   
-                  
-log = open('messagem_log.txt', a+)
-log.write(reg)
-log.close()
+reg.close()
+serv.close()
