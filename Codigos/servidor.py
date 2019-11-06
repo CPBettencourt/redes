@@ -54,7 +54,7 @@ while True:
 
     for socket_atual in sockets_lidos:
         if socket_atual == serv:
-            conn, conn_end = server.accept()
+            conn, conn_end = serv.accept()
             user = receive_message(conn)
 
             if user is False:
@@ -63,7 +63,7 @@ while True:
             sockets_lista.append(conn)
             clients[conn] = user
 
-            print('Nova conexao aceita de: {}'.format(user[info].decode('utf-8')))
+            print('Nova conexao aceita de: {}'.format(user['info'].decode('utf-8')))
             reg.write('Nova conexao aceita de: {} \n'.format(user['info'].decode('utf-8')))
             
         else:
