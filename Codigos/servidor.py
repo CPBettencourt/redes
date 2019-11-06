@@ -51,17 +51,24 @@ def receive_message(conn):
 
 while True:
     sockets_lidos, _, sockets_excecoes = select.select(sockets_lista, [], sockets_lista)
+    #Aqui os sockets que estão sendo lidos e algumas excecoes são incluidas em uma lista
+    #de sockets, enquanto os outros são colocados em uma lista vazia
 
     for socket_atual in sockets_lidos:
         if socket_atual == serv:
+            #Isso acontece quando um novo usuario se conecta, então o servidor o aceita
+            #e o usuario envia seu nome
             conn, conn_end = serv.accept()
             user = receive_message(conn)
 
             if user is False:
+                #Caso ele tenha se desconectado
                 continue
 
             sockets_lista.append(conn)
+            #Adiciona o socket na lista
             clients[conn] = user
+            #Salva o nome e o cabecalho do usuario
 
             print('Nova conexao aceita de: {}'.format(user['info'].decode('utf-8')))
             reg.write('Nova conexao aceita de: {} \n'.format(user['info'].decode('utf-8')))
@@ -70,8 +77,10 @@ while True:
             message = receive_message(socket_atual)
 
             if message is False:
+                #Usuario desconectado
                 print('Conexao encerrada com: {}'.format(clients[socket_atual]['info'].decode('utf-8')))
                 reg.write('Conexao encerrada com: {} \n'.format(clients[socket_atual]['info'].decode('utf-8')))
+                #Socket e usuario sao deletados
                 sockets_lista.remove(socket_atual)
                 del clients[socket_atual]
                 
