@@ -89,12 +89,14 @@ while True:
 
                 continue
 
+            #Descobrimos o usuario a partir do socket atual
             user = clients[socket_atual]
             print('Mensagem recebida de {}: {}'.format(user["info"].decode("utf-8"), message["info"].decode("utf-8")))
             reg.write('{}: {}'.format(user["info"].decode("utf-8"), message["info"].decode("utf-8")) + '\n')
 
+            #Estabelecendo conexao entre os clientes
             for client in clients:
-
+                #E enviando a mensagem para todos, menos para quem enviou
                 if client != socket_atual:
                     client.send(user['cabecalho'] + user['info'] + message['cabecalho'] + message['info'])
     if len(sockets_lista) == 1:
