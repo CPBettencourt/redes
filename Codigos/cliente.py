@@ -49,7 +49,7 @@ while True:
 			print(f'{usuario} > {mensagem}')
 	
 	except IOError as e:
-		if e.errno != errno.EAGAIN and e.errno != EWOULDBLOCK:
+		if e.errno != errno.EAGAIN and e.errno != errno.EWOULDBLOCK:
 			print('Erro de leitura', str(e))
 			sys.exit()
 		continue
