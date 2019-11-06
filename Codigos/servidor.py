@@ -67,28 +67,28 @@ while True:
             reg.write('Nova conexao aceita de: {} \n'.format(user['info'].decode('utf-8')))
             
         else:
-            message = receive_message(notified_socket)
+            message = receive_message(socket_atual)
 
             if message is False:
-                print('Conexao encerrada com: {}'.format(clients[notified_socket]['info'].decode('utf-8')))
-                reg.write('Conexao encerrada com: {} \n'.format(clients[notified_socket]['info'].decode('utf-8')))
-                sockets_list.remove(notified_socket)
-                del clients[notified_socket]
+                print('Conexao encerrada com: {}'.format(clients[socket_atual]['info'].decode('utf-8')))
+                reg.write('Conexao encerrada com: {} \n'.format(clients[socket_atual]['info'].decode('utf-8')))
+                sockets_lista.remove(socket_atual)
+                del clients[socket_atual]
                 
-                if len(sockets_list) == 1:
+                if len(sockets_lista) == 1:
                     break
 
                 continue
 
-            user = clients[notified_socket]
+            user = clients[socket_atual]
             print(f'Mensagem recebida de {user["info"].decode("utf-8")}: {message["info"].decode("utf-8")}')
             reg.write(f'{user["info"].decode("utf-8")}: {message["info"].decode("utf-8")}' + '\n')
 
             for client in clients:
 
-                if client != notified_socket:
+                if client != socket_atual:
                     client.send(user['cabecalho'] + user['info'] + message['cabecalho'] + message['info'])
-    if len(sockets_list) == 1:
+    if len(sockets_lista) == 1:
         break
 
 reg.write('Servidor encerrado')
