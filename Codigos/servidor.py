@@ -4,7 +4,7 @@
 import socket
 import select
 
-reg = open('message_log.txt', a+) #Arquivo txt registrando as mensagens da sessão
+reg = open('message_log.txt', 'a+') #Arquivo txt registrando as mensagens da sessão
 tam_cabe = 10 #Tamanho do cabecalho
 host = '169.254.141.186' #Indica qualquer IP
 port = 2000
@@ -64,14 +64,14 @@ while True:
             clients[conn] = user
 
             print('Nova conexao aceita de: {}'.format(user[info].decode('utf-8')))
-            reg.write(f'Nova conexao aceita de: {user['data'].decode('utf-8')}' + '\n')
+            reg.write(f'Nova conexao aceita de: {user[''data''].decode(''utf-8'')}' + '\n')
             
         else:
             message = receive_message(notified_socket)
 
             if message is False:
-                print(f'Conexao encerrada com: {clients[notified_socket]['data'].decode('utf-8')}')
-                reg.write(f'Conexao encerrada com: {clients[notified_socket]['data'].decode('utf-8')}' + '\n')
+                print(f'Conexao encerrada com: {clients[notified_socket][''data''].decode(''utf-8'')}')
+                reg.write(f'Conexao encerrada com: {clients[notified_socket][''data''].decode(''utf-8'')}' + '\n')
                 sockets_list.remove(notified_socket)
                 del clients[notified_socket]
                 
