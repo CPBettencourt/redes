@@ -7,7 +7,7 @@ import select
 import errno
 import sys
 
-tam_cabe = 10 #Tamanho do cabecalho
+tam_cabe = 10  #Tamanho do cabecalho
 host = '169.254.141.186'
 port = 2000
 end = (host, port)
