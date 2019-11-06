@@ -11,7 +11,7 @@ port = 2000
 end = (host, port)
 
 serv = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-serv.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEend, 1)
+serv.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 #Criacao do mecanismo de socket para recebimento da conexao, AF_INET indica a familia 
 #do protocolo e SOCK_STREAM indica que sera TCP/IP
 #Zera o TIME_WAIT do Socket, caso contrario, se o programa estiver aguardando uma conexao e o usuario der CTRL+C para 
