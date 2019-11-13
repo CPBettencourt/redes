@@ -7,7 +7,7 @@ import errno
 import sys
 
 tam_cabe = 10  #Tamanho do cabecalho
-host = '146.164.57.143'
+host = input("Insira o IP do servidor ao qual deseja se conectar:\n")
 port = 2000
 end = (host, port)
 nome = input("Escolha seu nome de usuario: \n")
