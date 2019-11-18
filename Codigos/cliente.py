@@ -7,8 +7,8 @@ import errno
 import sys
 
 tam_cabe = 10  #Tamanho do cabecalho
-host = input("Insira o IP do servidor ao qual deseja se conectar:\n")
-port = 2000
+host = '192.168.16.11'
+port = 3000
 end = (host, port)
 nome = input("Escolha seu nome de usuario: \n")
 
@@ -18,7 +18,7 @@ conn = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 #Estabelecimento da conexao ao servidor atraves do host e porta pre-definidos
 conn.connect(end)
-#Estabele a conexao para ocorrer bloqueio
+#Estabelece a conexao para ocorrer bloqueio
 conn.setblocking(False)
 
 #Codifica o nome do usuario em bytes, prepara o cabecalho e envia os dados

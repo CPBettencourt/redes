@@ -6,8 +6,8 @@ import select
 
 reg = open('message_log.txt', 'a+') #Arquivo txt registrando as mensagens da sessão
 tam_cabe = 10 #Tamanho do cabecalho
-host = '' #Indica o IP
-port = 2000
+host = '10.10.10.11' #Indica o IP
+port = 3000
 end = (host, port)
 
 serv = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
