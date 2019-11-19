@@ -6,8 +6,10 @@ import sys
 from threading import Thread
 import time
 
+reg = open('message_log_p2p.txt', 'a+')
 tam_cabe = 5
 
+#Essa funcao recebe as mensagens UDP
 def udp_chat():
     global nome 
     global transm_socket
@@ -22,24 +24,25 @@ def udp_chat():
             usuario = recebido[tam_cabe:tam_cabe+tam_usuario]
         
         #Se for uma mensagem
-        if usuario[:1] == 'm':
+        if usuario[:1] == 'm' and usuario[1:] != nome:
             cabe_mensagem = recebido[tam_cabe+tam_usuario:tam_cabe+tam_usuario+tam_cabe]
 
-            #Verifica se a mesangem esta vazia
+            #Verifica se a mensagem esta vazia
             if not len(cabe_mensagem):
                 return False
 
             tam_mensagem = int(cabe_mensagem.strip())
             mensagem = recebido[tam_cabe+tam_usuario+tam_cabe:tam_cabe+tam_usuario+tam_cabe+tam_mensagem]
 
-            print(usuario[1:]+">>"+mensagem)
+            print(usuario[1:] + ">>" + mensagem + '\n')
 
         #Se for um aviso da presenca do usuario na rede
-        elif usuario[:1] == 'o':
+        elif usuario[:1] == 'o' and usuario != nome:
             if not (usuario[1:] in atualmente_conectado):
                 atualmente_conectado.append(usuario[1:])
                 print("Nova conexao aceita de " + usuario[1:])
                 print("Total de usuarios conectados: " + str(len(atualmente_conectado)))
+                reg.write('Nova conexao aceita de ' + usuario[1:] + '\n')
             
         #Se for um aviso de saida da rede
         elif usuario[:1] == 's':
@@ -47,8 +50,9 @@ def udp_chat():
                 atualmente_conectado.remove(usuario[1:])
                 print("Conexao encerrada com " + usuario[1:])
                 print("Total de usuarios conectados: " + str(len(atualmente_conectado)))
+                reg.write('Conexao encerrada com ' + usuario[1:] + '\n')
         
-def envia_mensagem_trasmissao():
+def envia_mensagem():
     global nome
     global enviar_socket
     enviar_socket.setblocking(False)
@@ -73,7 +77,7 @@ def envia_mensagem_trasmissao():
             enviar_socket.sendto(cabe_usuario+usuario+cabe_mensagem+mensagem, ('255.255.255.255', 2000))
 
 #Mantem o envio do nome do usuario para a rede
-def envia_status_trasmissao():
+def envia_status():
     global nome
     global enviar_socket
     enviar_socket.setblocking(False)
@@ -113,11 +117,11 @@ def main():
     global recebe_thread
     recebe_thread = Thread(target=udp_chat)               
     global enviar_msg_thread
-    enviar_msg_thread = Thread(target=envia_mensagem_trasmissao)  
+    enviar_msg_thread = Thread(target=envia_mensagem)  
     global atualmente_conectado
     atualmente_conectado = []                                         
     global enviar_online_thread
-    enviar_online_thread = Thread(target=envia_status_trasmissao) 
+    enviar_online_thread = Thread(target=envia_status) 
     recebe_thread.start()                                          
     enviar_msg_thread.start()                                       
     enviar_online_thread.start()                                    
