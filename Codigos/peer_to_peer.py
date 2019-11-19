@@ -6,7 +6,6 @@ import sys
 from threading import Thread
 import time
 
-reg = open('message_log_p2p.txt', 'a+')
 tam_cabe = 5
 
 #Essa funcao recebe as mensagens UDP
@@ -42,7 +41,6 @@ def udp_chat():
                 atualmente_conectado.append(usuario[1:])
                 print("Nova conexao aceita de " + usuario[1:])
                 print("Total de usuarios conectados: " + str(len(atualmente_conectado)))
-                reg.write('Nova conexao aceita de ' + usuario[1:] + '\n')
             
         #Se for um aviso de saida da rede
         elif usuario[:1] == 's':
@@ -50,7 +48,6 @@ def udp_chat():
                 atualmente_conectado.remove(usuario[1:])
                 print("Conexao encerrada com " + usuario[1:])
                 print("Total de usuarios conectados: " + str(len(atualmente_conectado)))
-                reg.write('Conexao encerrada com ' + usuario[1:] + '\n')
         
 def envia_mensagem():
     global nome
@@ -85,6 +82,7 @@ def envia_status():
     cabe_usuario = f"{len(usuario):<{tam_cabe}}".encode('utf-8')
     while True:
         time.sleep(1)
+        print('o' + nome)
         enviar_socket.sendto(cabe_usuario+usuario, ('255.255.255.255', 2000))
 
 def main():
@@ -114,20 +112,20 @@ def main():
                 break
     print('*************************************************')  
 
-    global recebe_thread
-    recebe_thread = Thread(target=udp_chat)               
-    global enviar_msg_thread
-    enviar_msg_thread = Thread(target=envia_mensagem)  
+    global recebe_conversa
+    recebe_conversa = Thread(target=udp_chat)               
+    global envia_thread
+    envia_thread = Thread(target=envia_mensagem)  
     global atualmente_conectado
     atualmente_conectado = []                                         
-    global enviar_online_thread
-    enviar_online_thread = Thread(target=envia_status) 
-    recebe_thread.start()                                          
-    enviar_msg_thread.start()                                       
-    enviar_online_thread.start()                                    
-    recebe_thread.join()                                           
-    enviar_msg_thread.join()                                        
-    enviar_online_thread.join()                                     
+    global enviar_conversa
+    enviar_conversa = Thread(target=envia_status) 
+    recebe_conversa.start()                                          
+    envia_thread.start()                                       
+    enviar_conversa.start()                                    
+    recebe_conversa.join()                                           
+    envia_thread.join()                                        
+    enviar_conversa.join()                                     
 
 if __name__ == '__main__':
     main()
