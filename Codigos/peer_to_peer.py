@@ -1,4 +1,4 @@
-#comunicação peer to peer
+#comunicacao peer to peer
 
 import os
 import socket
